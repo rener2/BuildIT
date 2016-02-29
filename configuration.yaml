@@ -1,0 +1,51 @@
+homeassistant:
+
+  latitude: 59
+  longitude: 26
+  temperature_unit: C
+  time_zone: Europe/Tallinn
+
+# Track the sun
+sun:
+
+# View all events in a logbook
+logbook:
+
+# Enables support for tracking state changes over time.
+history:
+
+# Enables the frontend
+frontend:
+
+# Discover some devices automatically
+#discovery:
+
+# Allows you to issue voice commands from the frontend
+#conversation:
+
+# Show links to resources in log and frontend
+#introduction:
+
+hello_world:
+
+sensor 1:
+  platform: command_sensor_custom
+  name: movement detection
+  command: "/root/.homeassistant/PIR_1.py"
+  
+switch 1:
+  platform: command_switch
+  switches:
+    Living room LED:
+      oncmd: "/root/.homeassistant/light_on.py"
+      offcmd: "/root/.homeassistant/light_off.py"	  
+
+automation:
+- alias: "Turn on LED"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.movement_detection
+    above: 1
+  action:
+    entity_id: switch.Living_room_LED
+    service: switch.turn_on
