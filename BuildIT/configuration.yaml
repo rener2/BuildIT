@@ -29,16 +29,16 @@ frontend:
 hello_world:
 
 sensor 1:
-  platform: command_sensor_custom
+  platform: command_sensor
   name: movement detection
-  command: "/root/.homeassistant/PIR_1.py"
+  command: "sudo python3 root/.homeassistant/PIR_1.py"
   
 switch 1:
   platform: command_switch
   switches:
     Living room LED:
-      oncmd: "/root/.homeassistant/light_on.py"
-      offcmd: "/root/.homeassistant/light_off.py"	  
+      oncmd: "sudo python3 root/.homeassistant/light_on.py"
+      offcmd: "sudo python3 root/.homeassistant/light_off.py"	  
 
 automation:
 - alias: "Turn on LED"
