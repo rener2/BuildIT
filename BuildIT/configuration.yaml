@@ -27,6 +27,9 @@ frontend:
 #introduction:
 
 hello_world:
+group:
+  living_room:
+    - light.living_room_led
 
 sensor 1:
   platform: command_sensor
@@ -36,7 +39,7 @@ sensor 1:
 switch 1:
   platform: command_switch
   switches:
-    Living room LED:
+    living room led:
       oncmd: "/root/.homeassistant/light_on.py"
       offcmd: "/root/.homeassistant/light_off.py"
 
@@ -45,7 +48,7 @@ automation:
   trigger:
     platform: numeric_state
     entity_id: sensor.movement_detection
-    above: 1
+    above: 0.9
   action:
-    entity_id: switch.Living_room_LED
+    entity_id: switch.living_room_led
     service: switch.turn_on
