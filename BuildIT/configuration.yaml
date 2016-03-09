@@ -30,6 +30,7 @@ group:
   sensors:
     - sensor.pir_living_room
     - sensor.cpu
+    - sensor.testsensor
 
 binary_sensor 1:
   platform: rpi_gpio
@@ -40,14 +41,21 @@ binary_sensor 1:
   bouncetime: 50
   invert_logic: false
 
+sensor 1:
+  platform: command_sensor_custom
+  name: "testsensor"
+  command: "date"
+#  command: "cat /sys/class/thermal/thermal_zone0/temp"
+#  unit_of_measurement: "C"
+#  value_template: '{{ value | multiply(0.001) }}'
 
-sensor 2:
-  platform: command_sensor
-  scan_interval: 1
-  name: cpu
-  command: "cat /sys/class/thermal/thermal_zone0/temp"
-  unit_of_measurement: "C"
-  value_template: '{{ value | multiply(0.001) }}'
+#sensor 2:
+#  platform: command_sensor_custom
+#  scan_interval: 1
+#  name: cpu
+#  command: "cat /sys/class/thermal/thermal_zone0/temp"
+#  unit_of_measurement: "C"
+#  value_template: '{{ value | multiply(0.001) }}'
   
 switch 1:
   platform: command_switch
@@ -55,6 +63,31 @@ switch 1:
     living room led:
       oncmd: "/root/.homeassistant/light_on.py"
       offcmd: "/root/.homeassistant/light_off.py"
+
+input_select:
+  fan_temperature:
+    name: Fan Temperature
+    options:
+     - 10 C
+     - 20 C
+     - 30 C
+  light_condition:
+    options:
+      - Valge
+      - Hamar
+      - Pime
+  light_curtain_condition:
+    options:
+      - Lights off when curtains open
+      - Lights on when curtains open
+      - Home Alone
+  living_room_preset:
+    options:
+      - Visitors
+      - Visitors with kids
+      - Home Alone
+ 
+
 
 
 automation:
