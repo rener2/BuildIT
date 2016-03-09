@@ -29,8 +29,7 @@ group:
     - switch.living_room_led
   sensors:
     - sensor.pir_living_room
-    - sensor.cpu
-    - sensor.testsensor
+    - sensor.time
 
 binary_sensor 1:
   platform: rpi_gpio
@@ -43,19 +42,9 @@ binary_sensor 1:
 
 sensor 1:
   platform: command_sensor_custom
-  name: "testsensor"
+  scan_interval: 1
+  name: "time"
   command: "date"
-#  command: "cat /sys/class/thermal/thermal_zone0/temp"
-#  unit_of_measurement: "C"
-#  value_template: '{{ value | multiply(0.001) }}'
-
-#sensor 2:
-#  platform: command_sensor_custom
-#  scan_interval: 1
-#  name: cpu
-#  command: "cat /sys/class/thermal/thermal_zone0/temp"
-#  unit_of_measurement: "C"
-#  value_template: '{{ value | multiply(0.001) }}'
   
 switch 1:
   platform: command_switch
@@ -86,9 +75,6 @@ input_select:
       - Visitors
       - Visitors with kids
       - Home Alone
- 
-
-
 
 automation:
 - alias: "Turn on LED"
