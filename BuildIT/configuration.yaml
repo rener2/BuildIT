@@ -30,6 +30,10 @@ group:
   sensors:
     - sensor.pir_living_room
     - sensor.time
+  Humidity:
+    - sensor.humidity_sensor
+  Temperature:
+    - sensor.temperature_sensor
 
 binary_sensor 1:
   platform: rpi_gpio
@@ -45,6 +49,18 @@ sensor 1:
   scan_interval: 1
   name: "time"
   command: "date"
+
+sensor 2>
+  platform: command_sensor_custom
+  scan_interval: 1
+  name: "humidity_sensor"
+  command: "/root/.homeassistant/humidity_sensor.py"
+
+sensor 3:
+  platform: command_sensor_custom
+  scan_interval: 1
+  name: "temperature_sensor"
+  command: "/root/.homeassistant/temperature_sensor.py"
   
 switch 1:
   platform: command_switch
