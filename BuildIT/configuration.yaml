@@ -50,7 +50,7 @@ sensor 1:
   name: "time"
   command: "date"
 
-sensor 2>
+sensor 2:
   platform: command_sensor_custom
   scan_interval: 1
   name: "humidity_sensor"
