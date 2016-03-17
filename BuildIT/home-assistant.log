@@ -1,0 +1,2 @@
+16-03-10 16:46:51 homeassistant.loader: Unable to find component hello_world
+16-03-10 16:48:56 custom_components.sensor.command_sensor_custom: Command failed: /root/.homeassistant/temperature_sensor.py

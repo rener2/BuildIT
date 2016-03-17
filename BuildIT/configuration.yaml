@@ -5,6 +5,9 @@ homeassistant:
   temperature_unit: C
   time_zone: Europe/Tallinn
 
+ http:
+ api_password: buildit
+
 # View all events in a logbook
 logbook:
 
