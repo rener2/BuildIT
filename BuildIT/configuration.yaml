@@ -82,43 +82,43 @@ switch 1:
   platform: command_switch
   switches:
     lobby led:
-      oncmd: "/root/.homeassistant/light_on.py"
-      offcmd: "/root/.homeassistant/light_off.py"
+      oncmd: "/root/.homeassistant/led_loddy_on.py"
+      offcmd: "/root/.homeassistant/led_lobby_off.py"
 
 switch 2:
   platform: command_switch
   switches:
     kitchen led:
-      oncmd: "/root/.homeassistant/light_on.py"
-      offcmd: "/root/.homeassistant/light_off.py"
+      oncmd: "/root/.homeassistant/led_kitchen_on.py"
+      offcmd: "/root/.homeassistant/led_kitchen_off.py"
 
 switch 3:
   platform: command_switch
   switches:
     corner led:
-      oncmd: "/root/.homeassistant/light_on.py"
-      offcmd: "/root/.homeassistant/light_off.py"
+      oncmd: "/root/.homeassistant/led_corner_on.py"
+      offcmd: "/root/.homeassistant/led_corner_off.py"
       
 switch 4:
   platform: command_switch
   switches:
     bedroom led:
-      oncmd: "/root/.homeassistant/light_on.py"
-      offcmd: "/root/.homeassistant/light_off.py"
+      oncmd: "/root/.homeassistant/led_bedroom_on.py"
+      offcmd: "/root/.homeassistant/led_bedroom_off.py"
 
 switch 2:
   platform: command_switch
   switches:
     door control:
-      oncmd: "/root/.homeassistant/door_open.py"
-      offcmd: "/root/.homeassistant/door_close.py"
+      oncmd: "/root/.homeassistant/stepper_door_open.py"
+      offcmd: "/root/.homeassistant/stepper_door_close.py"
 
 switch 5:
   platform: command_switch
   switches:
     curtain control:
-      oncmd: "/root/.homeassistant/curtain_open.py"
-      offcmd: "/root/.homeassistant/curtain_close.py"
+      oncmd: "/root/.homeassistant/stepper_window_open.py"
+      offcmd: "/root/.homeassistant/stepper_window_close.py"
 
 switch 6:
   platform: command_switch
