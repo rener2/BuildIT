@@ -1,0 +1,21 @@
+import RPi.GPIO as GPIO
+import time
+GPIO.setmode(GPIO.BCM)
+STEPPER_WINDOW_ENABLE = 13	  
+STEPPER_WINDOW_STEP = 19
+STEPPER_WINDOW_DIR = 26
+GPIO.setup(STEPPER_WINDOW_ENABLE, GPIO.OUT) #Enable
+GPIO.setup(STEPPER_WINDOW_STEP, GPIO.OUT) #Step pin
+GPIO.setup(STEPPER_WINDOW_DIR, GPIO.OUT) #Direction pin
+
+num_steps = 20000 #number of steps
+
+GPIO.output(STEPPER_WINDOW_ENABLE, GPIO.LOW)
+GPIO.output(STEPPER_WINDOW_DIR, GPIO.HIGH)
+while num_steps > 0:
+    GPIO.output(STEPPER_WINDOW_STEP, GPIO.HIGH)
+    time.sleep(0.0001)
+    GPIO.output(STEPPER_WINDOW_STEP, GPIO.LOW)
+    num_steps -= 1
+
+GPIO.output(STEPPER_WINDOW_ENABLE, GPIO.HIGH)
