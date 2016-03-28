@@ -2,9 +2,10 @@
 #!/root
 import time
 import RPi.GPIO as GPIO
+import devices
 GPIO.setmode(GPIO.BCM)
 GPIO.cleanup()
-led_pin = 9
+led_pin = devices.LED_CORNER
 GPIO.setwarnings(False)
-GPIO.setup(led_pin, GPIO.OUT) 
-GPIO.output(led_pin, GPIO.HIGH)  ## Led on
+GPIO.setup(led_pin, GPIO.OUT)
+GPIO.output(led_pin, GPIO.HIGH)  # Led on
