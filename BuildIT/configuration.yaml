@@ -23,7 +23,6 @@ frontend:
 # Show links to resources in log and frontend
 #introduction:
 
-hello_world:
 group:
   Lights:
     - switch.lobby_led
@@ -79,7 +78,7 @@ switch 1:
   platform: command_switch
   switches:
     lobby led:
-      oncmd: "/root/.homeassistant/led_loddy_on.py"
+      oncmd: "/root/.homeassistant/led_lobby_on.py"
       offcmd: "/root/.homeassistant/led_lobby_off.py"
 
 switch 2:
@@ -159,7 +158,7 @@ automation:
 - alias: "Turn on LED"
   trigger:
     platform: state
-    entity_id: binary_sensor.pir_loddy
+    entity_id: binary_sensor.pir_lobby
     # Optional
     from: 'off'
     to: 'on'
