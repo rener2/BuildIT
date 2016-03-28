@@ -59,100 +59,76 @@ binary_sensor 1:
 sensor 1:
   platform: command_sensor_custom
   scan_interval: 1
-  name: "photoresistor_sensor"
+  name: "photoresistor"
   command: "/root/.homeassistant/photoresistor_sensor.py"
 
 sensor 2:
   platform: command_sensor_custom
   scan_interval: 1
-  name: "humidity_sensor"
+  name: "humidity"
   command: "/root/.homeassistant/humidity_sensor.py"
 
 sensor 3:
   platform: command_sensor_custom
   scan_interval: 1
-  name: "temperature_sensor"
+  name: "temperature"
   command: "/root/.homeassistant/temperature_sensor.py"
   
 switch 1:
   platform: command_switch
   switches:
-    lobby led:
+    lobby LED:
       oncmd: "/root/.homeassistant/led_lobby_on.py"
       offcmd: "/root/.homeassistant/led_lobby_off.py"
 
 switch 2:
   platform: command_switch
   switches:
-    kitchen led:
+    kitchen LED:
       oncmd: "/root/.homeassistant/led_kitchen_on.py"
       offcmd: "/root/.homeassistant/led_kitchen_off.py"
 
 switch 3:
   platform: command_switch
   switches:
-    corner led:
+    corner LED:
       oncmd: "/root/.homeassistant/led_corner_on.py"
       offcmd: "/root/.homeassistant/led_corner_off.py"
       
 switch 4:
   platform: command_switch
   switches:
-    bedroom led:
+    bedroom LED:
       oncmd: "/root/.homeassistant/led_bedroom_on.py"
       offcmd: "/root/.homeassistant/led_bedroom_off.py"
 
 switch 5:
   platform: command_switch
   switches:
-    door control:
+    door:
       oncmd: "/root/.homeassistant/stepper_door_open.py"
       offcmd: "/root/.homeassistant/stepper_door_close.py"
 
 switch 6:
   platform: command_switch
   switches:
-    curtain control:
+    curtain:
       oncmd: "/root/.homeassistant/stepper_window_open.py"
       offcmd: "/root/.homeassistant/stepper_window_close.py"
 
 switch 7:
   platform: command_switch
   switches:
-    peltier control:
+    peltier:
       oncmd: "/root/.homeassistant/peltier_on.py"
       offcmd: "/root/.homeassistant/peltier_off.py"
 
 switch 8:
   platform: command_switch
   switches:
-    fan control:
+    fan:
       oncmd: "/root/.homeassistant/fan_on.py"
       offcmd: "/root/.homeassistant/fan_off.py"
-
-
-input_select:
-  fan_temperature:
-    name: Fan Temperature
-    options:
-     - 10 C
-     - 20 C
-     - 30 C
-  light_condition:
-    options:
-      - Valge
-      - Hamar
-      - Pime
-  light_curtain_condition:
-    options:
-      - Lights off when curtains open
-      - Lights on when curtains open
-      - Home Alone
-  living_room_preset:
-    options:
-      - Visitors
-      - Visitors with kids
-      - Home Alone
 
 automation:
 - alias: "Turn on LED"
@@ -174,5 +150,5 @@ automation:
     from: 'on'
     to: 'off'
   action:
-    entity_id: switch.lobby_led
+    entity_id: switch.lobby_LED
     service: switch.turn_off
