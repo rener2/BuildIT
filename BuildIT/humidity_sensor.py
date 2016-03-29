@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #!/root
+import time
 import Adafruit_DHT as dht
-import devices
-h, t = dht.read_retry(dht.DHT22, devices.HUMIDITY_SENSOR)
-print('{1:0.1f}%'.format(h))
+humidity, temperature = dht.read_retry(dht.DHT22, 4)
+print('{1:0.1f}'.format(temperature - 1, humidity))
