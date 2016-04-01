@@ -43,7 +43,7 @@ group:
   Temperature and humidity:
     - sensor.humidity_sensor
     - sensor.temperature_sensor
-    - sensor.photoresistor_sensor
+    - sensor.light_sensor
 
 binary_sensor 1:
   platform: rpi_gpio
@@ -59,8 +59,8 @@ binary_sensor 1:
 sensor 1:
   platform: command_sensor_custom
   scan_interval: 1
-  name: "photoresistor"
-  command: "/root/.homeassistant/photoresistor_sensor.py"
+  name: "light_sensor"
+  command: "/root/.homeassistant/light_sensor.py"
 
 sensor 2:
   platform: command_sensor_custom
