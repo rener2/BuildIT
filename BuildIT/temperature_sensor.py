@@ -1,7 +1,5 @@
 #!/usr/bin/python
 #!/root
-#!/usr/bin/python
-#!/root
 import time
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
