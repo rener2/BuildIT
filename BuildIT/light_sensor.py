@@ -1,3 +1,5 @@
+#!/usr/bin/python
+#!/root
 import smbus
 import time
 bus = smbus.SMBus(0)
