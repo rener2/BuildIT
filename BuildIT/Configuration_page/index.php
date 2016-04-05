@@ -43,24 +43,26 @@
             <option value="LEDNurk">Alias4</option>
           </select></td>
         <td>
-<?php
-# here database details      
-mysql_connect('localhost', 'root', '');
-mysql_select_db('buildit');
+        <form action="#" method="post">
+		<?php
+		# here database details      
+		mysql_connect('localhost', 'root', '');
+		mysql_select_db('buildit');
 
-$sql = "SELECT device_name FROM devices";
-$result = mysql_query($sql);
+		$sql = "SELECT device_name FROM devices";
+		$result = mysql_query($sql);
 
-echo "<select name='device_entity'>";
-echo "<option value='empty'></option>";
-while ($row = mysql_fetch_array($result)) {
-    echo "<option value='" . $row['device_name'] ."'>" . $row['device_name'] ."</option>";
-}
-echo "</select>";
+		echo "<select name='device_entity'>";
+		echo "<option value='empty'></option>";
+		while ($row = mysql_fetch_array($result)) {
+		    echo "<option value='" . $row['device_name'] ."'>" . $row['device_name'] ."</option>";
+		}
+		echo "</select>";
 
-# here username is the column of my table(userregistration)
-# it works perfectly
-?>
+		# here username is the column of my table(userregistration)
+		# it works perfectly
+		?>
+		</form>
         </td>
         <td>
           <select name="ReadDevice1">
@@ -105,7 +107,18 @@ echo "</select>";
       <tr>
     </tbody>
   </table>
- </div> 
+ <p id="aligncenter"><input type="submit" name="submit" value="Get Selected Value"></p>
+ </div>
+ <?php
+if (isset($_POST['submit'])){
+echo("You pressed the button!------------------------------------------------------------------------------------------");
+$selected_val = $_POST['device_entity'];  // Storing Selected Value In Variable
+echo "You have selected : " + $selected_val;  // Displaying Selected Value
+} else {
+	echo("something");
+}
+?>
+
 </body>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='http://tablesorter.com/__jquery.tablesorter.min.js'></script>
