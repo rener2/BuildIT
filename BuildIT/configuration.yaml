@@ -45,22 +45,22 @@ group:
     - sensor.temperature_sensor
     - sensor.light_sensor
 
-binary_sensor 1:
-  platform: rpi_gpio
-  name: PIR_LIVING_ROOM
-  ports:
-    23: pir_lobby
-    24: pir_kitchen
-    10: pir_corner
-  pull_mode: "UP"
-  bouncetime: 50
-  invert_logic: false
+#binary_sensor 1:
+#  platform: rpi_gpio
+#  name: PIR_LIVING_ROOM
+#  ports:
+#    23: pir_lobby
+#    24: pir_kitchen
+#    10: pir_corner
+#  pull_mode: "UP"
+#  bouncetime: 50
+#  invert_logic: false
 
-sensor 1:
-  platform: command_sensor_custom
-  scan_interval: 1
-  name: "light_sensor"
-  command: "python /root/.homeassistant/light_sensor.py"
+#sensor 1:
+#  platform: command_sensor_custom
+#  scan_interval: 1
+#  name: "light_sensor"
+#  command: "python /root/.homeassistant/light_sensor.py"
 
 sensor 2:
   platform: command_sensor_custom
@@ -130,25 +130,25 @@ switch 8:
       oncmd: "python /root/.homeassistant/fan_on.py"
       offcmd: "python /root/.homeassistant/fan_off.py"
 
-automation:
-- alias: "Turn on LED"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.pir_lobby
+#automation:
+#- alias: "Turn on LED"
+#  trigger:
+#    platform: state
+#    entity_id: binary_sensor.pir_lobby
     # Optional
-    from: 'off'
-    to: 'on'
-  action:
-    entity_id: switch.lobby_led
-    service: switch.turn_on
+#    from: 'off'
+#    to: 'on'
+#  action:
+#    entity_id: switch.lobby_led
+#    service: switch.turn_on
 
-- alias: "Turn off LED"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.pir_lobby
+#- alias: "Turn off LED"
+#  trigger:
+#    platform: state
+#    entity_id: binary_sensor.pir_lobby
     # Optional
-    from: 'on'
-    to: 'off'
-  action:
-    entity_id: switch.lobby_LED
-    service: switch.turn_off
+#    from: 'on'
+#    to: 'off'
+#  action:
+#    entity_id: switch.lobby_LED
+#    service: switch.turn_off

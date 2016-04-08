@@ -11,5 +11,6 @@ a = 5
 while a > 0:
     GPIO.output(FAN_PIN, True)
     time.sleep(1)
+    a = a-1
 
 GPIO.output(FAN_PIN, False)

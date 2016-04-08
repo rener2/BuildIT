@@ -11,7 +11,7 @@ GPIO.setup(STEPPER_WINDOW_ENABLE, GPIO.OUT)  # Enable
 GPIO.setup(STEPPER_WINDOW_STEP, GPIO.OUT)  # Step pin
 GPIO.setup(STEPPER_WINDOW_DIR, GPIO.OUT)  # Direction pin
 
-num_steps = 20000  # number of steps
+num_steps = 45000  # number of steps
 
 GPIO.output(STEPPER_WINDOW_ENABLE, GPIO.LOW)
 GPIO.output(STEPPER_WINDOW_DIR, GPIO.LOW)

@@ -11,4 +11,9 @@ import devices
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(devices.PIR_LOBBY, GPIO.IN)
-print(GPIO.input(4))
+while(True):
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    GPIO.setup(devices.PIR_LOBBY, GPIO.IN)
+    print(GPIO.input(devices.PIR_LOBBY))
+    time.sleep(1)

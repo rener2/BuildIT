@@ -1,0 +1,154 @@
+homeassistant:
+
+  latitude: 59
+  longitude: 26
+  temperature_unit: C
+  time_zone: Europe/Tallinn
+
+# View all events in a logbook
+logbook:
+
+# Enables support for tracking state changes over time.
+history:
+
+# Enables the frontend
+frontend:
+
+# Discover some devices automatically
+#discovery:
+
+# Allows you to issue voice commands from the frontend
+#conversation:
+
+# Show links to resources in log and frontend
+#introduction:
+
+group:
+  Lights:
+    - switch.lobby_led
+    - switch.kitchen_led
+    - switch.corner_led
+    - switch.bedroom_led
+  Curtain:
+    - switch.curtain_control
+  Door:
+    - switch.door_control
+  Temperature control:
+    - switch.peltier_control
+    - switch.fan_control
+  Movement sensors:
+    - sensor.pir_lobby
+    - sensor.pir_kitchen
+    - sensor.pir_corner
+  Temperature and humidity:
+    - sensor.humidity_sensor
+    - sensor.temperature_sensor
+    - sensor.light_sensor
+
+binary_sensor 1:
+  platform: rpi_gpio
+  name: PIR_LIVING_ROOM
+  ports:
+    23: pir_lobby
+    24: pir_kitchen
+    10: pir_corner
+  pull_mode: "UP"
+  bouncetime: 50
+  invert_logic: false
+
+sensor 1:
+  platform: command_sensor_custom
+  scan_interval: 1
+  name: "light_sensor"
+  command: "/root/.homeassistant/light_sensor.py"
+
+sensor 2:
+  platform: command_sensor_custom
+  scan_interval: 1
+  name: "humidity"
+  command: "/root/.homeassistant/humidity_sensor.py"
+
+sensor 3:
+  platform: command_sensor_custom
+  scan_interval: 1
+  name: "temperature"
+  command: "/root/.homeassistant/temperature_sensor.py"
+  
+switch 1:
+  platform: command_switch
+  switches:
+    lobby LED:
+      oncmd: "/root/.homeassistant/led_lobby_on.py"
+      offcmd: "/root/.homeassistant/led_lobby_off.py"
+
+switch 2:
+  platform: command_switch
+  switches:
+    kitchen LED:
+      oncmd: "/root/.homeassistant/led_kitchen_on.py"
+      offcmd: "/root/.homeassistant/led_kitchen_off.py"
+
+switch 3:
+  platform: command_switch
+  switches:
+    corner LED:
+      oncmd: "/root/.homeassistant/led_corner_on.py"
+      offcmd: "/root/.homeassistant/led_corner_off.py"
+      
+switch 4:
+  platform: command_switch
+  switches:
+    bedroom LED:
+      oncmd: "/root/.homeassistant/led_bedroom_on.py"
+      offcmd: "/root/.homeassistant/led_bedroom_off.py"
+
+switch 5:
+  platform: command_switch
+  switches:
+    door:
+      oncmd: "/root/.homeassistant/stepper_door_open.py"
+      offcmd: "/root/.homeassistant/stepper_door_close.py"
+
+switch 6:
+  platform: command_switch
+  switches:
+    curtain:
+      oncmd: "/root/.homeassistant/stepper_window_open.py"
+      offcmd: "/root/.homeassistant/stepper_window_close.py"
+
+switch 7:
+  platform: command_switch
+  switches:
+    peltier:
+      oncmd: "/root/.homeassistant/peltier_on.py"
+      offcmd: "/root/.homeassistant/peltier_off.py"
+
+switch 8:
+  platform: command_switch
+  switches:
+    fan:
+      oncmd: "/root/.homeassistant/fan_on.py"
+      offcmd: "/root/.homeassistant/fan_off.py"
+
+automation:
+- alias: "Turn on LED"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.pir_lobby
+    # Optional
+    from: 'off'
+    to: 'on'
+  action:
+    entity_id: switch.lobby_led
+    service: switch.turn_on
+
+- alias: "Turn off LED"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.pir_lobby
+    # Optional
+    from: 'on'
+    to: 'off'
+  action:
+    entity_id: switch.lobby_LED
+    service: switch.turn_off
