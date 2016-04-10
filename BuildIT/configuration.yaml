@@ -74,6 +74,12 @@ sensor 3:
   name: "temperature"
   command: "python /root/.homeassistant/temperature_sensor.py"
   
+ sensor 4:
+  platform: command_sensor_custom
+  scan_interval: 1
+  name: "RFID"
+  command: "python /root/.homeassistant/RFID_sensor.py"
+  
 switch 1:
   platform: command_switch
   switches:
@@ -130,25 +136,4 @@ switch 8:
       oncmd: "python /root/.homeassistant/fan_on.py"
       offcmd: "python /root/.homeassistant/fan_off.py"
 
-#automation:
-#- alias: "Turn on LED"
-#  trigger:
-#    platform: state
-#    entity_id: binary_sensor.pir_lobby
-    # Optional
-#    from: 'off'
-#    to: 'on'
-#  action:
-#    entity_id: switch.outside_led
-#    service: switch.turn_on
-
-#- alias: "Turn off LED"
-#  trigger:
-#    platform: state
-#    entity_id: binary_sensor.pir_lobby
-    # Optional
-#    from: 'on'
-#    to: 'off'
-#  action:
-#    entity_id: switch.outside_LED
-#    service: switch.turn_off
+automation:
