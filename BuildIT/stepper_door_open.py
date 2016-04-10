@@ -11,7 +11,7 @@ GPIO.setup(STEPPER_DOOR_ENABLE, GPIO.OUT)  # Enable
 GPIO.setup(STEPPER_DOOR_STEP, GPIO.OUT)  # Step pin
 GPIO.setup(STEPPER_DOOR_DIR, GPIO.OUT)  # Direction pin
 
-num_steps = 10000  # number of steps
+num_steps = 8800  # number of steps
 
 GPIO.output(STEPPER_DOOR_ENABLE, GPIO.LOW)
 GPIO.output(STEPPER_DOOR_DIR, GPIO.LOW)
