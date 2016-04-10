@@ -6,7 +6,7 @@
 	$automation = '';
 	// + data from database
 	
-	$new_alias = $alias + '\n' + $trigger + '\n' + $automation + '\n'; 
+	$new_alias = $alias . '\n' . $trigger . '\n' . $automation . '\n'; 
 	 
 	$old_data = '';
     // load the data and delete the line from the array 
