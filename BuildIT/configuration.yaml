@@ -60,7 +60,7 @@ sensor 1:
   platform: command_sensor_custom
   scan_interval: 1
   name: "light_sensor"
-  command: "python /root/.homeassistant/light_sensor.py"
+  command: "python /home/pi/ADS1115/ads1x15_ex_singleended.py"
 
 sensor 2:
   platform: command_sensor_custom
