@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html >
+<!-- 
+---------------------------------------------------------------------------------------------------------------------------
+IMPRTANT TIPS FOR FUTURE DEVELOPMENT:
+1)Use PDO or mysqli instead of mysql, since the mysql_* functions are no longer maintained and community has begun the deprecation process.
+2)Change this code to depend more on ID-s, not names, for example line 51 or 155 and alot of stuff between and after these lines.
+3)You can use alot less mysqsl_connect and mysql_select_db statements than I used (didn't bother to remove them).
+4)This is my first PHP page EVER, so it is not advised to copy code or practices used in here.
+5)I should've used AJAX to update my table, since that way I wouldn't need to update the whole page. If you want to 
+develop this page further, I advise you to use AJAX (I didn't because I didn't know what AJAX is, still dont).
+6)Dont ever make accessing your databases as easy as I did. ;)
+---------------------------------------------------------------------------------------------------------------------------
+-->
   <head>
     <meta charset="UTF-8">
-    <title>Sortable Tabular Data</title>
+    <title>Configuration</title>
+    <link rel='shortcut icon' type='image/x-icon' href='/css/favicon.ico' />
 
         <link rel="stylesheet" href="css/style.css">
+        <!-- <link rel="stylesheet" type="text/css" href="themes/easydropdown.css"/>-->
 
   </head>
 
@@ -22,103 +36,105 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>
-            <?php
-            # here database details      
-            mysql_connect('localhost', 'root', '');
-            mysql_select_db('buildit2');
+    <?php
+      # here database details      
+      mysql_connect('localhost', 'root', '');
+      mysql_select_db('buildit');
+      for ($x = 1; $x <= 15; $x++) {
+          echo("<tr>");
 
-            $sql = "SELECT name FROM alias";
-            $result = mysql_query($sql);
-            $selected_alias = 'Turn on lobby LED';
-            /*
-            if(isset($_REQUEST['update'])) {
-                echo("update!");
-                $selected_alias = $_POST['alias_name'];
-                echo($selected_alias);
-            } else */if (isset($_REQUEST['save'])) {
-                echo("update through save!");
-                $selected_alias = $_POST['alias_name'];
-                echo($selected_alias);
-            } else {
-                echo("didnt update");
-            }
-            echo '<select name="alias_name" onchange="updateSelect();">';
-            while ($row = mysql_fetch_array($result)) {
-                if($selected_alias == $row['name']) {
-                    echo "<option value=" ."'$selected_alias'" ." selected>$selected_alias</option>/n"; 
+            echo("<td>");
+                $sql = "SELECT name, triger_id, action_id FROM alias";
+                $result = mysql_query($sql);
+                $selected_alias = "Alias $x";
+                /**
+                if(isset($_REQUEST['update'])) {
+                    $selected_alias = $_POST["alias_name $x"];
+                } else if (isset($_REQUEST['save'])) {
+                    $selected_alias = $_POST["alias_name $x"];
+                }**/
+
+                echo('<select name="'."alias_name$x".'" class="dropdown" onchange="updateSelect();">');
+                while ($row = mysql_fetch_array($result)) {
+                    if($selected_alias == $row['name']) {
+                        echo "<option value=" ."'$selected_alias'" ." selected>$selected_alias</option>/n";
+                    } else {
+                        echo "<option value='" . $row['name'] ."'>". $row['name'] ."</option>";
+                    }
+                }
+                echo "</select>";
+
+                # here name is the column of my table
+                # it works perfectly
+            echo("</td>");
+
+            echo("<td>");
+                # here database details      
+                mysql_connect('localhost', 'root', '');
+                mysql_select_db('buildit');
+
+                $sql = "SELECT name FROM triger";
+                $result = mysql_query($sql);
+
+                $sql2 = "SELECT triger.name FROM triger INNER JOIN alias ON triger.id=alias.triger_id WHERE alias.name = '$selected_alias';";
+                $result2 = mysql_query($sql2);
+                if (mysql_num_rows($result2) == 0) {
+                    $selected_triger_name = '';
                 } else {
-                    echo "<option value='" . $row['name'] ."'>". $row['name'] ."</option>";
+                    $selected_triger_name = mysql_result($result2, 0);
                 }
-            }
-            echo "</select>";
 
-            # here name is the column of my table
-            # it works perfectly
-            ?>
-        </td>
-
-        <td>
-            <?php
-            # here database details      
-            mysql_connect('localhost', 'root', '');
-            mysql_select_db('buildit2');
-
-            $sql = "SELECT name FROM triger";
-            $result = mysql_query($sql);
-            $sql2 = "SELECT triger.name FROM triger INNER JOIN alias ON triger.id=alias.triger_id WHERE alias.name = '$selected_alias';";
-            echo($sql2);
-            $result2 = mysql_query($sql2);
-            $selected_triger_name = mysql_result($result2, 0);
-
-            echo "<select name='triger_name'>";
-            echo "<option value=''></option>";
-            while ($row = mysql_fetch_array($result)) {
-                if($selected_triger_name == $row['name']) {
-                    echo "<option value=". "'$selected_triger_name'" ." selected>"."$selected_triger_name"."</option>/n"; 
-                } else { 
-                    echo "<option value='" . $row['name'] ."'>". $row['name'] ."</option>";
+                echo '<select name="'."triger_name$x".'" class="dropdown">';
+                echo "<option value=''></option>";
+                while ($row = mysql_fetch_array($result)) {
+                    if($selected_triger_name == $row['name']) {
+                        echo "<option value=". "'$selected_triger_name'" ." selected>"."$selected_triger_name"."</option>/n"; 
+                    } else { 
+                        echo "<option value='" . $row['name'] ."'>". $row['name'] ."</option>";
+                    }
                 }
-            }
-            echo "</select>";
-            ?>
-        </td>
+                echo "</select>";
+            echo("</td>");
 
-        <td>
-            <?php
-            # here database details      
-            mysql_connect('localhost', 'root', '');
-            mysql_select_db('buildit2');
+            echo("<td>");
+                # here database details      
+                mysql_connect('localhost', 'root', '');
+                mysql_select_db('buildit');
 
 
-            $sql = "SELECT name FROM action";
-            $result = mysql_query($sql);
-            $sql2 = "SELECT action.name FROM action INNER JOIN alias ON action.id=alias.action_id WHERE alias.name = '$selected_alias';";
-            $result2 = mysql_query($sql2);
-            $selected_action_name = mysql_result($result2, 0);
-
-            echo "<select name='action_name'>";
-            echo "<option value=''></option>";
-            while ($row = mysql_fetch_array($result)) {
-                if($selected_action_name == $row['name']) {
-                    echo "<option value=". "'$selected_action_name'" ." selected> ". "$selected_action_name" ."</option>/n"; 
-                } else { 
-                    echo "<option value='" . $row['name'] ."'>". $row['name'] ."</option>";
+                $sql = "SELECT name FROM action";
+                $result = mysql_query($sql);
+                $sql2 = "SELECT action.name FROM action INNER JOIN alias ON action.id=alias.action_id WHERE alias.name = '$selected_alias';";
+                $result2 = mysql_query($sql2);
+                if (mysql_num_rows($result2) == 0) {
+                    $selected_action_name = '';
+                } else {
+                    $selected_action_name = mysql_result($result2, 0);
                 }
-            }
-            
-            echo "</select>";
-            ?>
-        </td>
+                
 
-        <td>
-            <input type="submit" name="save" value="Save"/>
-            <input type="submit" id="update" name="update" value="update" style="display: none;"/>
-        </td>
-      </tr>
+                echo '<select name="'."action_name$x".'" class="dropdown">';
+                echo "<option value=''></option>";
+                while ($row = mysql_fetch_array($result)) {
+                    if($selected_action_name == $row['name']) {
+                        echo "<option value=". "'$selected_action_name'" ." selected> ". "$selected_action_name" ."</option>/n"; 
+                    } else { 
+                        echo "<option value='" . $row['name'] ."'>". $row['name'] ."</option>";
+                    }
+                }
+                
+                echo "</select>";            
+            echo("</td>");
+          echo("</tr>");
+      }
+      ?>
     </tbody>
   </table>
+  <div class="buttonHolder">
+  <button class="button" name="save">save</button>
+  <button class="button" name="reset">reset</button>
+  <input type="submit" id="update" name="update" value="update" style="display: none;"/>
+  </div>
  </div>
 
 <script>
@@ -133,69 +149,107 @@ function updateSelect()
 //Save the current selection to the databse.
 if(isset($_REQUEST['save'])){
     mysql_connect('localhost', 'root', '');
-    mysql_select_db('buildit2');
+    mysql_select_db('buildit');
+
     
-    $alias_name = $_POST['alias_name'];
-    echo("---".$alias_name."---");
-    print_r($_POST);
+    //$alias_name = $_POST['alias_name'];
+    for ($x = 1; $x <= 15; $x++) {
+        //$alias_name = $_POST["alias_name $x"];
+        $alias_name = "Alias $x";
 
-    if ($_POST['triger_name'] != '' and $_POST['action_name'] != '') {
-        // get triger data from database
-        $trigger_name = $_POST['triger_name'];
+        if ($_POST["triger_name$x"] != '' and $_POST["action_name$x"] != '') {
+            // get triger data from database
+            $trigger_name = $_POST["triger_name$x"];
 
-        $sql = "SELECT data FROM triger WHERE name = " ."'"."$trigger_name"."'".";";
-        $result = mysql_query($sql);
-        if (!$result) {
-            // Handle error here
-        } else {
-            $triger_data = mysql_result($result, 0);
+            $sql = "SELECT data FROM triger WHERE name = " ."'"."$trigger_name"."'".";";
+            $result = mysql_query($sql);
+            if (!$result) {
+                // Handle error here
+            } else {
+                $triger_data = mysql_result($result, 0);
+            }
+
+            // get action data
+            $action_name = $_POST["action_name$x"];
+            $sql = "SELECT data FROM action WHERE name = '$action_name';";
+            $result = mysql_query($sql);
+            if (!$result) {
+                // Handle error here
+            } else {
+                $action_data = mysql_result($result, 0);
+            }
+
+            //Get triger_id
+            $triger_name = $_POST["triger_name$x"];
+            $sql = "SELECT id FROM triger WHERE name = '$triger_name';";
+            $result = mysql_query($sql);
+            if (!$result) {
+                // Handle error here
+            } else {
+                $triger_id = mysql_result($result, 0);
+            }
+
+            //Get action_id
+            $sql = "SELECT id FROM action WHERE name = '$action_name';";
+            $result = mysql_query($sql);
+            if (!$result) {
+                // Handle error here
+            } else {
+                $action_id = mysql_result($result, 0);
+            }
+
+            //Insert automation into the database
+            $sql = "UPDATE alias SET triger_id=$triger_id, action_id=$action_id where name='$alias_name';";
+
+            $result = mysql_query($sql);
+            if (!$result) {
+                echo("<p style='color:orange;background-color:red;'>Error - couldnt write data to the database.");
+            } else {
+                //echo("<p style='color:orange;background-color:red;'>Sucessfully wrote data to the database.\r\n");
+            }
+            writeToConfiguration();
+            } else if ($_POST["triger_name$x"] == '' and $_POST["action_name$x"] == '') {
+                $sql = "UPDATE alias SET triger_id=0, action_id=0 where name='$alias_name';";
+                $result = mysql_query($sql);
+                if (!$result) {
+                    echo("<p style='color:orange;background-color:red;'>Error - couldnt write data to the database.");
+                } else {
+                    //echo("<p style='color:orange;background-color:red;'>Sucessfully wrote data to the database.\r\n");
+                }
+            } else {
+                echo("<p style='color:orange;background-color:red;text-align:center'>WARNING: Didnt update automation! You cannot leave only one empty!");
+                echo "<script style='color:orange;background-color:red;text-align:center'>alert('WARNING: Didnt update automation! You cannot leave only one empty!');</script>";
         }
-
-        // get action data
-        $action_name = $_POST['action_name'];
-        $sql = "SELECT data FROM action WHERE name = '$action_name';";
-        $result = mysql_query($sql);
-        if (!$result) {
-            // Handle error here
-        } else {
-            $action_data = mysql_result($result, 0);
-        }
-
-        //Get triger_id
-        $triger_name = $_POST['triger_name'];
-        $sql = "SELECT id FROM triger WHERE name = '$triger_name';";
-        $result = mysql_query($sql);
-        if (!$result) {
-            // Handle error here
-        } else {
-            $triger_id = mysql_result($result, 0);
-        }
-
-        //Get action_id
-        $sql = "SELECT id FROM action WHERE name = '$action_name';";
-        $result = mysql_query($sql);
-        if (!$result) {
-            // Handle error here
-        } else {
-            $action_id = mysql_result($result, 0);
-        }
-
-        //Insert automation into the database
-        $sql = "UPDATE alias SET triger_id=$triger_id, action_id=$action_id where name='$alias_name';";
-
-        $result = mysql_query($sql);
-        if (!$result) {
-            echo("Error - couldnt write data to the database.");
-        } else {
-            echo("Sucessfully wrote data to the database.");
-        }
-        writeToConfiguration();
-        } else {
-        echo("WARNING: Didnt update automation! You have to choose all the fields!");
     }
-} else {
-    echo("\r\nChoose alias, triger, action and press the save button\r\n");
+                echo '<script type="text/javascript">'
+                , 'updateSelect();'
+                , '</script>'
+                ;
 }
+?>
+
+<?php
+//Save the current selection to the databse.
+if(isset($_REQUEST['reset'])){
+    mysql_connect('localhost', 'root', '');
+    mysql_select_db('buildit');
+    for ($x = 1; $x <= 15; $x++) {
+        $alias_name = "Alias $x";
+        $sql = "UPDATE alias SET triger_id=0, action_id=0 where name='$alias_name';";
+        $result = mysql_query($sql);
+        if (!$result) {
+            echo "<script style='color:orange;background-color:red;text-align:center'>alert('WARNING: Didnt update automation! You cannot leave only one empty!');</script>";
+            echo("<p style='color:orange;background-color:red;'>Error - couldnt write data to the database.");
+        } else {
+            //echo("<p style='color:orange;background-color:red;'>Sucessfully wrote data to the database.\r\n");
+        }
+    }
+    echo '<script type="text/javascript">'
+                , 'updateSelect();'
+                , '</script>'
+                ;
+}
+
 ?>
 
 <?php
@@ -204,7 +258,7 @@ function writeToConfiguration() {
     $automation = "";
     //Connect to the database.
     mysql_connect('localhost', 'root', '');
-    mysql_select_db('buildit2');
+    mysql_select_db('buildit');
 
     $sql = "SELECT id, name, triger_id, action_id FROM alias";
     $result = mysql_query($sql);
@@ -243,7 +297,7 @@ function writeToConfiguration() {
     $old_data = '';
     
     //Add automation to the configuration file
-    for ($i=0; $i < 133; $i++) {
+    for ($i=0; $i < 139; $i++) {
         $line = fgets($lines);
         #if ($line != 0) {
         $old_data .= $line;
@@ -254,8 +308,7 @@ function writeToConfiguration() {
     $fp = fopen('C:\xampp\htdocs\Configuration.yaml', 'w'); 
     fwrite($fp, $old_data); 
     fclose($fp);
-    echo("Successfully wrote data to configuration file!");
-
+    //echo("<p style='color:orange;background-color:red;'>Successfully wrote data to configuration file!\r\n");
 }
 ?>
 
@@ -269,6 +322,7 @@ function writeToConfiguration() {
 </body>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='http://tablesorter.com/__jquery.tablesorter.min.js'></script>
+<!--<script src="js/jquery.easydropdown.js" type="text/javascript"></script>-->
 
         <script src="js/index.js"></script>
 
