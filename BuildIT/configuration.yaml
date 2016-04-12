@@ -122,14 +122,14 @@ switch 6:
       oncmd: "python /root/.homeassistant/stepper_window_open.py"
       offcmd: "python /root/.homeassistant/stepper_window_close.py"
 
-switch 7:
-  platform: command_switch
-  switches:
-    peltier:
-      oncmd: "python /root/.homeassistant/peltier_on.py"
-      offcmd: "python /root/.homeassistant/peltier_off.py"
+#switch 7:
+#  platform: command_switch
+#  switches:
+#    peltier:
+#      oncmd: "python /root/.homeassistant/peltier_on.py"
+#      offcmd: "python /root/.homeassistant/peltier_off.py"
 
-switch 8:
+switch 7:
   platform: command_switch
   switches:
     fan:
