@@ -293,7 +293,7 @@ function writeToConfiguration() {
         $automation .= $action_data . "\r\n\r\n";
     }
     // load the data and delete the line from the array 
-    $lines = fopen('C:\xampp\htdocs\Configuration.yaml', 'r'); 
+    $lines = fopen('Configuration.yaml', 'r'); 
     $old_data = '';
     
     //Add automation to the configuration file
@@ -305,7 +305,7 @@ function writeToConfiguration() {
         }
     
     $old_data .= $automation;
-    $fp = fopen('C:\xampp\htdocs\Configuration.yaml', 'w'); 
+    $fp = fopen('Configuration.yaml', 'w'); 
     fwrite($fp, $old_data); 
     fclose($fp);
     //echo("<p style='color:orange;background-color:red;'>Successfully wrote data to configuration file!\r\n");
