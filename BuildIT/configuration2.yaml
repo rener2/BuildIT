@@ -1,0 +1,140 @@
+homeassistant:
+
+  latitude: 59
+  longitude: 26
+  temperature_unit: C
+  time_zone: Europe/Tallinn
+
+# View all events in a logbook
+logbook:
+
+# Enables support for tracking state changes over time.
+history:
+
+# Enables the frontend
+frontend:
+
+# Discover some devices automatically
+#discovery:
+
+# Allows you to issue voice commands from the frontend
+#conversation:
+
+# Show links to resources in log and frontend
+#introduction:
+
+group:
+  Lights:
+    - switch.outside_led
+    - switch.kitchen_led
+    - switch.corner_led
+    - switch.bedroom_led
+  Curtain:
+    - switch.curtain_control
+  Door:
+    - switch.door_control
+  Temperature control:
+    - switch.peltier_control
+    - switch.fan_control
+  Movement sensors:
+    - sensor.pir_lobby
+    - sensor.pir_kitchen
+    - sensor.pir_corner
+  Temperature and humidity:
+    - sensor.humidity_sensor
+    - sensor.temperature_sensor
+    - sensor.light_sensor
+
+binary_sensor 1:
+  platform: rpi_gpio
+  name: PIR_LIVING_ROOM
+  ports:
+    23: pir_lobby
+    24: pir_kitchen
+    10: pir_corner
+  pull_mode: "UP"
+  bouncetime: 50
+  invert_logic: false
+
+sensor 1:
+  platform: command_sensor_custom
+  scan_interval: 1
+  name: "light_sensor"
+  command: "python /home/pi/ADS1115/ads1x15_ex_singleended.py"
+
+sensor 2:
+  platform: command_sensor_custom
+  scan_interval: 1
+  name: "humidity"
+  command: "python /root/.homeassistant/humidity_sensor.py"
+
+sensor 3:
+  platform: command_sensor_custom
+  scan_interval: 1
+  name: "temperature"
+  command: "python /root/.homeassistant/temperature_sensor.py"
+  
+ sensor 4:
+  platform: command_sensor_custom
+  scan_interval: 1
+  name: "RFID"
+  command: "python /root/.homeassistant/RFID_sensor.py"
+  
+switch 1:
+  platform: command_switch
+  switches:
+    outside LED:
+      oncmd: "python /root/.homeassistant/led_outside_on.py"
+      offcmd: "python /root/.homeassistant/led_outside_off.py"
+
+switch 2:
+  platform: command_switch
+  switches:
+    kitchen LED:
+      oncmd: "python /root/.homeassistant/led_kitchen_on.py"
+      offcmd: "python /root/.homeassistant/led_kitchen_off.py"
+
+switch 3:
+  platform: command_switch
+  switches:
+    corner LED:
+      oncmd: "python /root/.homeassistant/led_corner_on.py"
+      offcmd: "python /root/.homeassistant/led_corner_off.py"
+      
+switch 4:
+  platform: command_switch
+  switches:
+    bedroom LED:
+      oncmd: "python /root/.homeassistant/led_bedroom_on.py"
+      offcmd: "python /root/.homeassistant/led_bedroom_off.py"
+
+switch 5:
+  platform: command_switch
+  switches:
+    door:
+      oncmd: "python /root/.homeassistant/stepper_door_open.py"
+      offcmd: "python /root/.homeassistant/stepper_door_close.py"
+
+switch 6:
+  platform: command_switch
+  switches:
+    curtain:
+      oncmd: "python /root/.homeassistant/stepper_window_open.py"
+      offcmd: "python /root/.homeassistant/stepper_window_close.py"
+
+#switch 7:
+#  platform: command_switch
+#  switches:
+#    peltier:
+#      oncmd: "python /root/.homeassistant/peltier_on.py"
+#      offcmd: "python /root/.homeassistant/peltier_off.py"
+
+switch 7:
+  platform: command_switch
+  switches:
+    fan:
+      oncmd: "python /root/.homeassistant/fan_on.py"
+      offcmd: "python /root/.homeassistant/fan_off.py"
+
+automation:
+test
