@@ -1,0 +1,1 @@
+Add this python file under .homeassistant/custom_components/sensor to make all custom command sensors refresh at 1 second. By default at line 22 is: MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=60), but we changed it to "MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=60)"
