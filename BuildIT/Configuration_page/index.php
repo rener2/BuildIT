@@ -273,7 +273,7 @@ function writeToConfiguration() {
     $old_data = '';
     
     //Add automation to the configuration file
-    for ($i=0; $i < 138; $i++) {
+    for ($i=0; $i < 139; $i++) {
         $line = fgets($lines);
         #if ($line != 0) {
         $old_data .= $line;
